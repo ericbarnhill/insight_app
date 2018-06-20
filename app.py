@@ -1,10 +1,17 @@
+import requests
 from flask import Flask
 app = Flask(__name__)
 
-
-@app.route('/')
-def hello():
-    return "Insight web app created by yourname."
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == "POST":
+        try:
+            search_term = request.form['word']
+            print("word was:")
+            print(word)
+        except: 
+            print("error")
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run()
