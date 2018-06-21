@@ -7,7 +7,7 @@ def get_graph():
         G = pickle.load(fp)
     return G
 
-def get_hot_keywords(N=20):
+def hot_search_terms(N=20):
     G = get_graph()
     keywords =  {}
     for node in G.nodes(data=True):
@@ -19,7 +19,7 @@ def get_hot_keywords(N=20):
     hot_keywords = []
     n = 0
     for item in sorted(keywords.items(), key=operator.itemgetter(1), reverse=True):
-        hot_keywords.append(item)
+        hot_keywords.append(item[0])
         n += 1
         if n >= N:
             break

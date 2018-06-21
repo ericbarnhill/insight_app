@@ -1,47 +1,72 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <title>ImagingEdge Radiological Trend Detector</title>
+     <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 50%;
+            padding: 10px;
+            height: 300px; /* Should be removed. Only for demonstration */
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+    <title>ImagingEdge Radiological Trend Detector</title>
   </head>
     <body>
-        <div class="container">
-          <h1>ImagingEdge Radiological Trend Detector</h1>
-          <form role="form" method='POST' action='/'>
-            <div class="form-group">
-              <input type="text" name="word" placeholder="Enter word" style="max-width: 300px;" autofocus required>
+        <div class="row">
+            <div class="column">
+                <h1>ImagingEdge Radiological Trend Detector</h1>
+                <form role="form" method='POST' action='/'>
+                <div class="form-group">
+                  <input type="text" name="searchterm" placeholder="Enter a search term" style="max-width: 300px;" autofocus required>
+                </div>
+                <button type="submit">Submit</button>
+                </form>
+                <br>
+                {% for error in errors %}
+                <h4>{{ error }}</h4>
+                {% endfor %}
+                {% if hot_searchterms %}
+                    <h2>Hottest Search Terms:</h2>
+                    <br>
+                    <div id="results">
+                        <ol>
+                        {% for hot_searchterm in hot_searchterms %}
+                        <li><a href="/searchterm/{{ hot_searchterm }}">{{ hot_searchterm }}</a></li>
+                        {% endfor %}
+                      </table>
+                    </div>
+                {% endif %}
             </div>
-            <button type="submit">Submit</button>
-          </form>
-          <br>
-          {% for error in errors %}
-            <h4>{{ error }}</h4>
-          {% endfor %}
-        </div>
-        <div>
-            {% if keywords %}
-                <h2>Hottest Search Terms:</h2>
-                <br>
-                <div id="results">
-                    <ol>
-                    {% for keyword in keywords %}
-                        <li>{{ keyword }}</li>
-                    {% endfor %}
-                  </table>
-                </div>
-            {% endif %}
-        </div>
-        <div>
-            {% if trends %}
-            <h2>Trending Terms for {{ word }}:</h2>
-                <br>
-                <div id="results">
-                    <ol>
-                    {% for trend in trends %}
-                        <li>{{ trend }}</li>
-                    {% endfor %}
-                  </table>
-                </div>
-            {% endif %}
+            <div class="column">
+                {% if trends %}
+                <h2>Trending Terms for Search Term "{{ searchterm }}" :</h2>
+                <h3>(% of total trend weight)</h3>
+                    <br>
+                    <div id="results">
+                        <ol>
+                        {% for trend in trends %}
+                        <li><a href="/trendingterm/{{ trend }}">{{ trend }}</a> ({{ trends_pct[loop.index] }})</li>
+                        {% endfor %}
+                      </table>
+                    </div>
+                {% endif %}
+                {% if plot_path %}
+                    plot path detected
+                    <img src="plot.png">
+                {% endif %}
+            </div>
         </div>
     </body>
 </html>
