@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-     <style>
+    <style>
         * {
             box-sizing: border-box;
         }
@@ -57,14 +57,13 @@
                     <div id="results">
                         <ol>
                         {% for trend in trends %}
-                        <li><a href="/trendingterm/{{ trend }}">{{ trend }}</a> ({{ trends_pct[loop.index] }})</li>
+                        <li><a href="/trendingterm/{{ trend }}__{{ searchterm }}">{{ trend }}</a> ({{ trends_pct[loop.index] }})</li>
                         {% endfor %}
                       </table>
                     </div>
                 {% endif %}
-                {% if plot_path %}
-                    plot path detected
-                    <img src="plot.png">
+                {% if plot_url %}
+                    <img style="max-width:500px;" src="{{ url_for('static', filename = plot_url) }}">
                 {% endif %}
             </div>
         </div>

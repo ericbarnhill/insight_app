@@ -39,27 +39,33 @@ def search_results(searchterm):
         trends, trends_pct = top_N_trends(searchterm)
     except:
         errors.append("search term error.")
+    print(trends)
     return render_template('index.html', searchterm=searchterm, hot_searchterms=hot_searchterms, trends=trends, trends_pct=trends_pct, errors=errors)
 
 @app.route('/trendingterm/<trendingterm>', methods = ['GET', 'POST'])
 def render_plot(trendingterm):
-    print("trendingterm is", trendingterm)
     hot_searchterms = hot_search_terms()
+    errors = []
     try:
-        hot_searchterms = []
         terms = str.split(trendingterm, '__')
         trendingterm = terms[0]
-        searchterm = terms[1]
+        if len(terms) > 1:
+            searchterm = terms[1]
+        else:
+            searchterm = []
         trendingterm = ' '.join(str.split(trendingterm, '%20'))
-        searchterm = ' '.join(str.split(searchterm, '%20'))
-        print("reprocessed trending term is:", trendingterm)
-        print("reprocessed search term is:", searchterm)
-        trends, trends_pct = top_N_trends(searchterm)
-        errors = []
-        plot_path = []
-        if trend_to_plot(trendingterm):
-            plot_path = "plot.png"
-        return render_template('index.html', hot_searchterms=hot_searchterms, trends=trends, trends_pct=trends_pct, errors=errors, plot_path=plot_path)
+        trends = []
+        trends_pct = []
+        if searchterm:
+            searchterm = ' '.join(str.split(searchterm, '%20'))
+            trends, trends_pct = top_N_trends(searchterm)
+        try:
+            print("plotting:", trendingterm)
+            plot_url = trend_to_plot(trendingterm)
+        except:
+            print("plotting error")
+            plot_url = []
+        return render_template('index.html', hot_searchterms=hot_searchterms, trends=trends, searchterm=searchterm,  trends_pct=trends_pct, errors=errors, plot_url=plot_url)
     except:
         print("error processing trending term tag, refreshing homepage.")
         return redirect(url_for('index'))
