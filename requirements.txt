@@ -2,4 +2,4 @@ flask==1.0.2
 gunicorn==19.8.1
 requests==2.19.1
 networkx==2.1
-seaborn==0.8.1
+matplotlib==2.2.2
