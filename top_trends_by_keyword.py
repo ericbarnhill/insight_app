@@ -16,7 +16,10 @@ def top_N_trends(keyword, N=10):
     trends_pct = []
     for key, value in sorted(edges_dict.items(), key=operator.itemgetter(1), reverse=True):
         value_pct = value / total_weight * 100
-        value_str = "{:.1f}%".format(value_pct)
+        #convert to pixels for bar
+        value_bar = value_pct * 10
+        #value_str = "{:.1f}%".format(value_pct)
+        value_str = str(round(value_bar))
         trends.append(key)
         trends_pct.append(value_str)
         index += 1
