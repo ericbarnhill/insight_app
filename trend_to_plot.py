@@ -32,5 +32,5 @@ def trend_to_plot(trend):
     print("plot filename:", filename)
     plt.savefig("static/"+filename, bbox_inches="tight")
     plt.clf()
-    return filename
+    return filename, n_months
 
