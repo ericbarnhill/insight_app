@@ -46,6 +46,7 @@ def search_results(searchterm):
 def render_plot(trendingterm):
     hot_searchterms = hot_search_terms()
     errors = []
+    print("trendingterm is", trendingterm)
     try:
         terms = str.split(trendingterm, '__')
         trendingterm = terms[0]
@@ -65,7 +66,7 @@ def render_plot(trendingterm):
         except:
             print("plotting error")
             plot_url = []
-        return render_template('index.html', hot_searchterms=hot_searchterms, trends=trends, searchterm=searchterm,  trends_pct=trends_pct, errors=errors, plot_url=plot_url)
+        return render_template('index.html', hot_searchterms=hot_searchterms, trends=trends, searchterm=searchterm,  trends_pct=trends_pct, errors=errors, plot_url=plot_url, trendingterm=trendingterm)
     except:
         print("error processing trending term tag, refreshing homepage.")
         return redirect(url_for('index'))

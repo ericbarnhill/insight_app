@@ -18,28 +18,33 @@
 
       <!-- CSS
       –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-      <link rel="stylesheet" href="css/normalize.css">
-      <link rel="stylesheet" href="css/skeleton.css">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
 
       <!-- Favicon
       –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-      <link rel="icon" type="image/png" href="images/favicon.png">
+      <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+      <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
   </head>
     <body>
         <div class="container">
             <div class="row">
-                    <h1>ImagingEdge Radiological Trend Detector</h1>
+                <h1>ImagingEdge Radiological Trend Detector</h1>
+                <h4>created by Eric Barnhill <a href="https://github.com/ericbarnhill">GitHub</a> <a href="https://linkedin.com/in/ericbarnhill">LinkedIn</a></h4>
                     <form role="form" method='POST' action='/'>
                     <div class="form-group">
                       <input type="text" name="searchterm" placeholder="Enter a search term" style="max-width: 300px;" autofocus required>
                     </div>
-                    <button type="submit">Submit</button>
+                    <button type="submit">Find Trends</button>
                     </form>
                     <br>
                     {% for error in errors %}
                     <h4>{{ error }}</h4>
                     {% endfor %}
                     {% if hot_searchterms %}
+            </div>
+            <div class="row">
+                <div class="four columns">
                         <h2>Hottest Search Terms:</h2>
                         <br>
                         <div id="results">
@@ -51,7 +56,7 @@
                         </div>
                     {% endif %}
                 </div>
-                <div class="column">
+                <div class="four columns">
                     {% if trends %}
                     <h2>Trending Terms for Search Term "{{ searchterm }}" :</h2>
                         <br>
@@ -63,9 +68,15 @@
                           </table>
                         </div>
                     {% endif %}
-                    {% if plot_url %}
-                        <img style="max-width:500px;" src="{{ url_for('static', filename = plot_url) }}">
+                </div>
+                <div class="four columns">
+                    {% if trendingterm %}
+                    <h2>Last 12 months, mentions of "{{ trendingterm }}"</h2> 
                     {% endif %}
+                    {% if plot_url %}
+                        <img class="twelve columns" src="{{ url_for('static', filename = plot_url) }}">
+                    {% endif %}
+                </div>
             </div>
         </div>
     </body>
