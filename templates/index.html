@@ -29,8 +29,9 @@
     <body>
         <div class="container">
             <div class="row">
-                <h1>ImagingEdge Radiological Trend Detector</h1>
-                <h4>created by Eric Barnhill <a href="https://github.com/ericbarnhill">GitHub</a> <a href="https://linkedin.com/in/ericbarnhill">LinkedIn</a></h4>
+                <h2>ImagingEdge Radiological Trend Detector</h2>
+                <h3>created by Eric Barnhill <a href="https://github.com/ericbarnhill">GitHub</a> <a href="https://linkedin.com/in/ericbarnhill">LinkedIn</a></h3>
+                <h3><a href={{ url_for('static', filename = "ImagingEdge.pdf") }}>How It Works (PDF Slides)</a></h3>
                     <form role="form" method='POST' action='/'>
                     <div class="form-group">
                       <input type="text" name="searchterm" placeholder="Enter a search term" style="max-width: 300px;" autofocus required>
@@ -39,7 +40,7 @@
                     </form>
                     <br>
                     {% for error in errors %}
-                    <h4>{{ error }}</h4>
+                    <h3>{{ error }}</h3>
                     {% endfor %}
                     {% if hot_searchterms %}
             </div>
