@@ -3,7 +3,7 @@ import networkx as nx
 import operator
 
 def get_graph():
-    with open("G.txt", "rb") as fp:
+    with open("G.pickle", "rb") as fp:
         G = pickle.load(fp)
     return G
 

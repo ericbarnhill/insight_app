@@ -9,18 +9,19 @@ import base64
 import random
 
 def trend_to_plot(trend):
-    # load bow_trends object
-    with open("bow_trends.txt", "rb") as fp:
-        bow_trends = pickle.load(fp)
+    # load trends object
+    with open("trends_converted.pickle", "rb") as fp:
+        trends = pickle.load(fp)
     # debug - examine 5 keys
-    # print(list(bow_trends)[:5])
+    # print(list(trends)[:5])
     # get time series
     try:
-        ts = bow_trends[trend]
+        ts = trends[trend]
     except:
         print("Trending term not found in term dictionary.")
         return False
-    plt.style.use('ggplot')
+    print("Trend score: ", ts)
+    plt.style.use('seaborn-pastel')
     n_months = len(ts)
     x = np.linspace(1, n_months, n_months)
     plt.plot(x, ts)
