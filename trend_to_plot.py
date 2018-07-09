@@ -21,6 +21,7 @@ def trend_to_plot(trend):
         print("Trending term not found in term dictionary.")
         return False
     print("Trend score: ", ts)
+    plt.figure(figsize=(3,4))
     plt.style.use('seaborn-pastel')
     n_months = len(ts)
     x = np.linspace(1, n_months, n_months)
