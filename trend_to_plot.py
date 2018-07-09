@@ -25,7 +25,7 @@ def trend_to_plot(trend):
     plt.style.use('seaborn-pastel')
     n_months = len(ts)
     x = np.linspace(1, n_months, n_months)
-    plt.plot(x, ts)
+    plt.plot(x, ts, linewidth=3)
     plt.xlabel('Month')
     plt.ylabel('Number of Mentions')
     plt.xticks(x)
