@@ -7,6 +7,7 @@ import io
 import urllib.parse
 import base64
 import random
+import numpy as np
 
 def trend_to_plot(trend):
     # load trends object
@@ -26,6 +27,15 @@ def trend_to_plot(trend):
     n_months = len(ts)
     x = np.linspace(1, n_months, n_months)
     plt.plot(x, ts, linewidth=3)
+    line_fit = np.polyfit(x, ts, 1)
+    fit_start = line_fit[1]
+    fit_end = line_fit[1] + n_months*line_fit[0]
+    print("start: ", np.round(fit_start))
+    print("end: ", np.round(fit_end))
+    pct_inc =  fit_end / fit_start
+    print("pct inc", pct_inc)
+    pct_inc ='{0:.{1}f}%'.format((pct_inc-1)*100, 1)
+    print("Percent increase: ", pct_inc)
     plt.xlabel('Month')
     plt.ylabel('Number of Mentions')
     plt.xticks(x)
@@ -34,5 +44,5 @@ def trend_to_plot(trend):
     print("plot filename:", filename)
     plt.savefig("static/"+filename, bbox_inches="tight")
     plt.clf()
-    return filename, n_months
+    return filename, n_months, pct_inc
 

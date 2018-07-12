@@ -32,6 +32,7 @@
                 <h2>ImagingEdge Radiological Trend Detector</h2>
                 <h3>created by <a href="https://linkedin.com/in/ericbarnhill">Eric Barnhill</a> <a href="https://github.com/ericbarnhill/ImagingEdge">GitHub Source</a> </h3>
                 <h3><a href="https://tinyurl.com/y7u4l2d6">How It Works (Google Slides)</a></h3>
+                <h2>Enter a search term:</h2>
                     <form role="form" method='POST' action='/'> <div class="form-group">
                       <input type="text" name="searchterm" placeholder="Enter a search term" style="max-width: 300px;" autofocus required>
                     </div>
@@ -45,7 +46,7 @@
             </div>
             <div class="row">
                 <div class="four columns">
-                        <h2>Hottest Search Terms:</h2>
+                        <h2>Or, choose from the hottest search terms:</h2>
                         <br>
                         <div id="results">
                             <ol>
@@ -58,7 +59,7 @@
                 </div>
                 <div class="four columns">
                     {% if trends %}
-                    <h2>Trending Terms for Search Term "{{ searchterm }}"</h2>
+                    <h2>Trending terms related to search term "{{ searchterm }}". Click to view trend movements:</h2>
                         <br>
                         <div id="results">
                             <ol>
@@ -75,6 +76,9 @@
                     {% endif %}
                     {% if plot_url %}
                         <img class="twelve columns" src="{{ url_for('static', filename = plot_url) }}">
+                    {% endif %}
+                    {% if pct_inc %}
+                    <h2>Percent Increase, Linear Fit: {{pct_inc}}</h2> 
                     {% endif %}
                 </div>
             </div>

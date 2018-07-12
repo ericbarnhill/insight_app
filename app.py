@@ -62,14 +62,15 @@ def render_plot(trendingterm):
             trends, trends_pct = top_N_trends(searchterm)
         try:
             print("plotting:", trendingterm)
-            plot_url, n_months = trend_to_plot(trendingterm)
+            plot_url, n_months, pct_inc = trend_to_plot(trendingterm)
         except:
             print("plotting error")
             plot_url = []
             n_months = 0
         return render_template('index.html', hot_searchterms=hot_searchterms, trends=trends,
-            searchterm=searchterm,  trends_pct=trends_pct, errors=errors, plot_url=plot_url, 
-            n_months=n_months, trendingterm=trendingterm)
+            searchterm=searchterm,  trends_pct=trends_pct, errors=errors, plot_url=plot_url,
+            n_months=n_months, trendingterm=trendingterm,
+            pct_inc = pct_inc)
     except:
         print("error processing trending term tag, refreshing homepage.")
         return redirect(url_for('index'))
